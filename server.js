@@ -20,6 +20,10 @@ app.use('/api/pay/',paystack)
 app.use('/api/collection/',collectionRouter)
 app.use('/api/',userRouter)
 app.use('/api/',commentRoute)
+app.get('/',(req,res)=>{
+    const apidoc = 'https://documenter.getpostman.com/view/21225799/UzQuR6VE'
+    res.send(`for api documentation click the link: <a href="${apidoc}">doc</a>`)
+})
 
 // server connection
 mongoose.connect(mongodburi)
