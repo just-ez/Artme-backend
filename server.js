@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(cors({ 
      origin: "*", 
    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH','OPTION'],
-   allowedHeaders: ['Content-Type', 'Authorization']
+   allowedHeaders: ['Content-Type', 'Authorization'],
+   "preflightContinue": false,
+   "optionsSuccessStatus": 204
 }));
 
 //router middleware
