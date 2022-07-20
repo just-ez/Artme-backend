@@ -17,7 +17,7 @@ app.use(cors({
      origin: "*", 
    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH','OPTIONS'],
    allowedHeaders: ['Content-Type', 'Authorization','Origin','Access-Control-Allow-Origin','Accept','Options','x-Requested-with'],
-   "preflightContinue": true,
+   "preflightContinue": false,
    "optionsSuccessStatus": 204
 }));
 
