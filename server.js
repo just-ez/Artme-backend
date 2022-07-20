@@ -15,9 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({ 
      origin: "*", 
-   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH','OPTION'],
-   allowedHeaders: ['Content-Type', 'Authorization'],
-   "preflightContinue": false,
+   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH','OPTIONS'],
+   allowedHeaders: ['Content-Type', 'Authorization','Origin','Access-Control-Allow-Origin','Accept','Options','x-Requested-with'],
+   "preflightContinue": true,
    "optionsSuccessStatus": 204
 }));
 
