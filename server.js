@@ -5,27 +5,22 @@ const {mongodburi,PORT} = require('./src/core/config')
 const cors = require('cors')
 
 
-const userRouter = require('./src/service/user')
-const collectionRouter = require('./src/routes/collectionRoute')
+const userController = require('./src/controllers/userController')
+const collectionController = require('./src/controllers/collectionController')
 const paystack = require('./src/controllers/clientController')
-const commentRoute = require('./src/routes/commentsRoutes')
+const commentController = require('./src/controllers/commentController')
 
 // Middleware
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
-app.use(cors({ 
-     origin: "*", 
-   methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH','OPTIONS'],
-   allowedHeaders: ['Content-Type', 'Authorization','Origin','Access-Control-Allow-Origin','Accept','Options','x-Requested-with'],
-   "preflightContinue": false,
-   "optionsSuccessStatus": 204
-}));
+app.use(cors( ));
+const hasToken = require('./src/core/userAuth')
 
 //router middleware
 app.use('/api/pay/',paystack)
-app.use('/api/collection/',collectionRouter)
-app.use('/api/',userRouter)
-app.use('/api/',commentRoute)
+// app.use('/api/collection/',collectionController)
+// app.use('/api/',userController) 
+// app.use('/api/',commentController)
 app.get('/',(req,res)=>{
     const apidoc = 'https://documenter.getpostman.com/view/21225799/UzQuR6VE'
     res.send(`for api documentation click the link: <a href="${apidoc}">doc</a>`)
