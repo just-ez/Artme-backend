@@ -18,9 +18,9 @@ const hasToken = require('./src/core/userAuth')
 
 //router middleware
 app.use('/api/pay/',paystack)
-// app.use('/api/collection/',collectionController)
-// app.use('/api/',userController) 
-// app.use('/api/',commentController)
+app.use('/api/collection/',collectionController)
+app.use('/api/',userController) 
+app.use('/api/',commentController)
 app.get('/',(req,res)=>{
     const apidoc = 'https://documenter.getpostman.com/view/21225799/UzQuR6VE'
     res.send(`for api documentation click the link: <a href="${apidoc}">doc</a>`)
