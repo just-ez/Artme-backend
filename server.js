@@ -5,7 +5,7 @@ const {mongodburi,PORT} = require('./src/core/config')
 const cors = require('cors')
 
 
-const userController = require('./src/controllers/userController')
+const userController = require('./src/controllers/usercontroller')
 const collectionController = require('./src/controllers/collectionController')
 const paystack = require('./src/controllers/clientController')
 const commentController = require('./src/controllers/commentController')
