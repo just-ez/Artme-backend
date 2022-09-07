@@ -10,13 +10,23 @@ const Schema = new mongoose.Schema({
        type: String,
        required: true,
    },
+   phone_number: {
+    type: Number,
+    trim: true
+   },
    password: {
        type: String,
        required: true,
        minlength: 6
    },
+   bio: {
+    type: String
+   },
    profileImg: {
     type: String
+   },
+   coverImg: {
+     type: String
    },
    isVerified: {
        type: Boolean,
@@ -25,9 +35,8 @@ const Schema = new mongoose.Schema({
 })
 
 Schema.pre('save', async function (next) {
-    // if (!user.isModified('password')) return next();
+    if (!user.isModified('password')) return next();
  let salt = await bcrypt.genSalt()
-console.log({pass:this.password})  
  this.password = await bcrypt.hash(this.password, salt)
  next()
 

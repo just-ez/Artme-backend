@@ -12,6 +12,12 @@ module.exports.getAll = async (req, res) => {
     if (user) res.status(200).send(user)
 }
 
+module.exports.getUserById = async (req, res) => {
+    const id = req.params.Id 
+    const user = await USermodel.find({_id: id})
+    if (user) res.status(200).send(user)
+}
+
 
 module.exports.signup =  async (req, res) => {
     try {

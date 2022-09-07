@@ -3,6 +3,8 @@ const user = require('../service/user')
 
 router.get('/users',user.getAll)
 
+router.get('/users/:Id',user.getUserById)
+
 router.post('/signup',user.signup)
 
 router.patch('/updateUser',user.updateUser)

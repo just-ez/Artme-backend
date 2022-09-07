@@ -5,6 +5,10 @@
         type: String,
         required: true
     },
+    description: {
+        type: String,
+        // required: true
+    },
     Image: {
         type: String,
         required: true
@@ -16,6 +20,7 @@
         type: mongoose.Types.ObjectId,
         ref: 'user'
     },
+
  },{timestamps: true}) 
  
  const CollectionModel = mongoose.model('collection', Schema)

@@ -7,6 +7,7 @@ router.post('/', async (req,res)=>{
   const result = await paystack.initializePayment(email)
  res.send(result)
 })
+
 router.get('/:ref', async (req,res)=>{
   const  ref = req.params.ref
   const result = await paystack.verifyPayment(ref)
