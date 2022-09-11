@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
-// const { STRING } = require('mysql/lib/protocol/constants/types');
 const Schema = new mongoose.Schema({
     name: {
         type: String,
@@ -35,7 +34,7 @@ const Schema = new mongoose.Schema({
 })
 
 Schema.pre('save', async function (next) {
-    if (!user.isModified('password')) return next();
+    // if (!user.isModified('password')) return next();
  let salt = await bcrypt.genSalt()
  this.password = await bcrypt.hash(this.password, salt)
  next()
