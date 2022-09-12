@@ -49,3 +49,14 @@ module.exports.getAllCollection = async (req,res) => {
         return error(res,400,err)
     }
  }
+
+ module.exports.deleteCollection = async (req,res) => {
+    try {
+        const deleted = await new Collection({Id: req.params.Id,decoded: req.decoded, ...req.body}).deleteCollection()
+        if (deleted) return success(res,deleted,'collection deleted', 200)
+        return error(res,400, 'cannot delete collection')
+    }
+    catch (err) {
+        return error(res,400,err)
+    }
+ }

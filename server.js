@@ -8,7 +8,7 @@ const cors = require('cors')
 const userRoute = require('./src/Router/userRoute')
 const collectionRoute = require('./src/Router/collectionRoute')
 const paystack = require('./src/controllers/clientController')
-const commentController = require('./src/controllers/commentController')
+const commentRoute = require('./src/Router/commentRoute')
 
 // Middleware
 app.use(express.urlencoded({ extended: true })); 
@@ -20,7 +20,7 @@ const hasToken = require('./src/core/userAuth')
 app.use('/api/pay/',paystack)
 app.use("/api/collection/", collectionRoute);
 app.use('/api/',userRoute) 
-// app.use('/api/',commentController)
+app.use('/api/',commentRoute)
 app.get('/',(req,res)=>{
     const apidoc = 'https://documenter.getpostman.com/view/21225799/UzQuR6VE'
     res.send(`for api documentation click the link: <a href="${apidoc}">doc</a>`)

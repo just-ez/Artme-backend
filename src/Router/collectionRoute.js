@@ -10,6 +10,6 @@ router.post("/create", hasToken, collection.createCollection);
 
 router.patch("/:Id", hasToken, collection.updateCollection);
 
-// router.delete("/:Id", hasToken, collection.deleteCollection);
+router.delete("/:Id", hasToken, collection.deleteCollection);
 
 module.exports = router;
