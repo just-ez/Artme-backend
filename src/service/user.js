@@ -2,8 +2,9 @@
 const USermodel = require('../models/user.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { jwt_Secret_key, jwt_duration } = require('../core/config')
-
+const { jwt_Secret_key, jwt_duration } = require('../core/config');
+const cloudinary = require('../core/cloudinaryConfig.js');
+const { api_key, api_secret, cloud_name } = require('../core/config')
 
 
  class User {
@@ -32,8 +33,8 @@ const { jwt_Secret_key, jwt_duration } = require('../core/config')
      }
    }
 
-   async updateUser() {
-     const updatedata = this.data;
+   async updateUserBoi() {
+     const updatedata = this.data.bio;
      const findUser = await USermodel.findOne({ email: this.data.email });
      console.log(findUser);
      if (findUser) {
@@ -44,6 +45,57 @@ const { jwt_Secret_key, jwt_duration } = require('../core/config')
        return updated;
      }
    }
+
+   async updateProfileImg() {
+  
+    const data = {
+      profileImg: this.data.profileImg
+    }
+   const user = await USermodel.findOne({
+     email: this.data.email 
+    });
+   if (user) {
+     cloudinary.v2.uploader.upload(data.profileImg, {
+      use_filename: true,
+      unique_filename: false,
+      overwrite: true,
+    }).
+    then( async (result) => {
+      console.log(result.url);
+      const updated = await USermodel.updateOne(
+        { email: user.email },
+        {profileImg: result.url}
+      );
+      // console.log(updated);
+      return updated
+    })
+   
+   }
+
+   }
+
+   async updateCoverImg() {
+    const data = {
+      coverImg: this.data.coverImg
+    }
+   const user = await USermodel.findOne({ 
+    email: this.data.email
+   });
+   if (user) {
+    const imgurl = await cloudinary.v2.uploader.upload(data.coverImg,{
+      use_filename: true,
+      unique_filename: false,
+      overwrite: true,
+    })
+    const updated = await USermodel.updateOne(
+      { email: user.email },
+      {coverImg: imgurl.url}
+    );
+    return updated
+   }
+
+   }
+
 
    async login() {
      const user = await USermodel.findOne({ email: this.data.email });

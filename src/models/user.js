@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt');
 const Schema = new mongoose.Schema({
-    name: {
+    user_name: {
         type: String,
         required: true  
     },
@@ -19,7 +19,8 @@ const Schema = new mongoose.Schema({
        minlength: 6
    },
    bio: {
-    type: String
+    type: String,
+    default: 'no boi'
    },
    profileImg: {
     type: String

@@ -8,7 +8,11 @@ router.get('/users/:Id', user.getUserById)
 
 router.post('/signup', user.signup)
 
-router.patch('/user', user.updateUser)
+router.patch('/user/bio', user.updateUser)
+
+router.post('/user/profileImg', user.updateProfileImg)
+
+router.post('/user/coverImg', user.updateCoverImg)
 
 router.post('/login', user.login)
 

@@ -8,5 +8,8 @@ module.exports = {
     AMOUNT: 500,
     PAYSTACK_SECRET_KEY: process.env.PAYSTACK_SECRET_KEY,
     PAYSTACK_BASE_URL: 'https://api.paystack.co/transaction/',
-    CONNECTION_TIMEOUT: 10000
+    CONNECTION_TIMEOUT: 10000,
+    cloud_name: process.env.cloud_name,
+    api_key: process.env.api_key,
+    api_secret: process.env.api_secret,
 }
