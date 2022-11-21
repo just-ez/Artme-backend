@@ -36,11 +36,11 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
    async updateUserBoi() {
      const updatedata = this.data.bio;
      const findUser = await USermodel.findOne({ email: this.data.email });
-     console.log(findUser);
+     console.log(updatedata);
      if (findUser) {
        const updated = await USermodel.updateOne(
          { email: findUser.email },
-         updatedata
+         {bio: updatedata}
        );
        return updated;
      }
@@ -55,21 +55,16 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
      email: this.data.email 
     });
    if (user) {
-     cloudinary.v2.uploader.upload(data.profileImg, {
-      use_filename: true,
-      unique_filename: false,
-      overwrite: true,
-    }).
-    then( async (result) => {
-      console.log(result.url);
+   const updateImg = await cloudinary.v2.uploader.upload(this.data.profileImg, {
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+  })
       const updated = await USermodel.updateOne(
         { email: user.email },
-        {profileImg: result.url}
-      );
-      // console.log(updated);
+        {profileImg: updateImg.url})
+      console.log(updated);
       return updated
-    })
-   
    }
 
    }
@@ -115,15 +110,6 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
 
 
  }
-
- 
-
- 
-
-
-
-
-
 
 
 module.exports = User

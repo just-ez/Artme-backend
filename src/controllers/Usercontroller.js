@@ -15,7 +15,8 @@ module.exports.getAllUsers =  async(req,res) => {
 
 module.exports.getUserById =  async (req,res) => {
   try {
-    const user = await new User(req.params.Id).getUserById()
+    console.log(req.decoded);
+    const user = await new User(req.decoded._id).getUserById()
     if (user) return success(res, user, 200)
     else return error(res, 404, 'user not found')
   } catch (err) {
@@ -47,8 +48,10 @@ module.exports.updateUser = async (req,res) => {
 
 module.exports.updateProfileImg = async (req,res) => {
  try {
-  await new User({email: req.body.email, ...req.body}).updateProfileImg()
-   return success(res, [], 'user profile image updated',200)
+  const userProfile = await new User(req.body).updateProfileImg()
+  console.log('profile',userProfile);
+  if (userProfile) return success(res,userProfile,'user profile image updated',200)
+  return error(res,400,'unable to update user')
  } catch (err) {
   console.log('err occured');
   return error(res,err.code,err.message)
