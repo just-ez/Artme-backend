@@ -20,7 +20,7 @@ const Schema = new mongoose.Schema({
    },
    bio: {
     type: String,
-    default: 'no boi'
+    default: ''
    },
    profileImg: {
     type: String
