@@ -14,7 +14,8 @@
         required: true
     },
     likes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     category: {
         type: String
