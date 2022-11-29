@@ -52,7 +52,7 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
      email: this.data.email 
     });
    if (user) {
-   const updateImg = await cloudinary.v2.uploader.upload(this.data.profileImg, {
+   const updateImg = await cloudinary.v2.uploader.upload(this.data.profileImage, {
     use_filename: true,
     unique_filename: false,
     overwrite: true,
