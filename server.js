@@ -9,7 +9,6 @@ const userRoute = require('./src/Router/userRoute')
 const collectionRoute = require('./src/Router/artRoute')
 const paystack = require('./src/controllers/clientController')
 const commentRoute = require('./src/Router/commentRoute')
-
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,7 +21,7 @@ app.use(cors({
 
 //router middleware
 
-// app.use('/api/pay/',paystack)
+app.use('/api/pay/',paystack)
 app.use("/api/art/", collectionRoute);
 app.use('/api/',userRoute) 
 app.use('/api/',commentRoute)
@@ -32,5 +31,6 @@ app.get('/',(req,res)=>{
 })
 
 // server connection
+
 mongoose.connect(mongodburi)
-.then(()=> app.listen(PORT,()=> console.log(`listening on port ${PORT}`)))
+.then(()=> app.listen(PORT,()=>  console.log(`backend is listening ${PORT}`)))

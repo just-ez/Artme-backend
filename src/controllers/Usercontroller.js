@@ -48,8 +48,9 @@ module.exports.updateUser = async (req,res) => {
 
 module.exports.updateProfileImg = async (req,res) => {
  try {
+  console.log('profile',req.body);
   const userProfile = await new User(req.body).updateProfileImg()
-  console.log('profile',userProfile);
+  
   if (userProfile) return success(res,userProfile,'user profile image updated',200)
   return error(res,400,'unable to update user')
  } catch (err) {
@@ -61,10 +62,12 @@ module.exports.updateProfileImg = async (req,res) => {
 
 module.exports.updateCoverImg = async (req,res) => {
   try {
-   await new User({email: req.body.email, ...req.body}).updateCoverImg()
-   return success(res, [], 'user cover image updated')
+    console.log(req.body);
+   const img = await new User({email: req.body.email, coverImage: req.body.coverImage}).updateCoverImg()
+   if (img) return success(res, [], 'user cover image updated')
+   return error(res,400,'incorrect file')
   } catch (err) {
-   return error(res,err.code,err.message)
+   return error(res,400,err)
   }
  }
  
