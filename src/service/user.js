@@ -47,7 +47,7 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
    }
 
    async updateProfileImg() {
-    console.log(this.data);
+    console.log('this',this.data.profileImage);
    const user = await USermodel.findOne({
      email: this.data.email 
     });
