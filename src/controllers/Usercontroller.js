@@ -49,9 +49,9 @@ module.exports.updateUser = async (req, res) => {
 
 module.exports.updateProfileImg = async (req, res) => {
   try {
-    // console.log('profile',req.body);
+    console.log('profile',req.decoded);
     const userProfile = await new User({
-      email: req.body.email,
+      id: req.decoded._id,
       profileImage: req.body.profileImage,
     }).updateProfileImg();
 
@@ -65,15 +65,15 @@ module.exports.updateProfileImg = async (req, res) => {
 
 module.exports.updateCoverImg = async (req, res) => {
   try {
-    console.log(req.body);
+    console.log(req.decoded);
     const img = await new User({
-      email: req.body.email,
+      id: req.decoded._id,
       coverImage: req.body.coverImage,
     }).updateCoverImg();
     if (img) return success(res, [], "user cover image updated");
     return error(res, 400, "incorrect file");
   } catch (err) {
-    return error(res, 400, err);
+    return error(res, 400, err.message);
   }
 };
 

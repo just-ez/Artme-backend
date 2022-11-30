@@ -10,9 +10,9 @@ router.post('/signup', user.signup)
 
 router.patch('/user/bio', user.updateUser)
 
-router.post('/user/profileImg', user.updateProfileImg)
+router.post('/user/profileImg', hasToken, user.updateProfileImg)
 
-router.post('/user/coverImg', user.updateCoverImg)
+router.post('/user/coverImg', hasToken, user.updateCoverImg)
 
 router.post('/login', user.login)
 
