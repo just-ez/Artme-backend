@@ -54,11 +54,12 @@ module.exports.updateProfileImg = async (req, res) => {
       id: req.decoded._id,
       profileImage: req.body.profileImage,
     }).updateProfileImg();
-
+    console.log(userProfile);
     if (userProfile)
       return success(res, userProfile, "user profile image updated", 200);
     return error(res, 400, "unable to update user");
   } catch (err) {
+    console.log(err);
     return error(res, 400, err);
   }
 };
@@ -73,6 +74,7 @@ module.exports.updateCoverImg = async (req, res) => {
     if (img) return success(res, [], "user cover image updated");
     return error(res, 400, "incorrect file");
   } catch (err) {
+    console.log(err);
     return error(res, 400, err.message);
   }
 };
