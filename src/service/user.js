@@ -52,14 +52,9 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
      _id: this.data.id 
     });
    if (user) {
-   const updateImg = await cloudinary.v2.uploader.upload(this.data.profileImage, {
-    use_filename: true,
-    unique_filename: false,
-    overwrite: true,
-  })
       const updated = await USermodel.updateOne(
         { _id: user._id },
-        {profileImg: updateImg.url})
+        {profileImg: this.data.profileImage})
       console.log(updated);
       return updated
    }
@@ -73,22 +68,16 @@ const { api_key, api_secret, cloud_name } = require('../core/config')
    });
    console.log(user);
    if (user) {
-    const imgurl = await cloudinary.v2.uploader.upload(this.data.coverImage,{
-      use_filename: true,
-      unique_filename: false,
-      overwrite: true,
-    })
-   if (imgurl) {
     const updated = await USermodel.updateOne(
       { _id: user._id },
-      {coverImg: imgurl.url}
+      {coverImg: this.data.coverImage}
     );
     return updated
    }
     
    }
 
-   }
+   
 
 
    async login() {
