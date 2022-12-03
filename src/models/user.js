@@ -14,7 +14,9 @@ const Schema = new mongoose.Schema({
    },
    phone_number: {
     type: Number,
-    trim: true
+    trim: true,
+    default: ''
+    
    },
    password: {
        type: String,
