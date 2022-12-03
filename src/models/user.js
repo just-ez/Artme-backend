@@ -26,10 +26,12 @@ const Schema = new mongoose.Schema({
     default: ''
    },
    profileImg: {
-    type: String
+    type: String,
+    default: ''
    },
    coverImg: {
-     type: String
+     type: String,
+     default: ''
    },
    isVerified: {
        type: Boolean,
