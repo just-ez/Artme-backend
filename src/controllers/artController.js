@@ -27,7 +27,6 @@ module.exports.getAllArt = async (req,res) => {
  module.exports.createArt = async (req,res) => {
     try {
         const art = await new Art({
-          Id: req.params.Id,
           decoded: req.decoded,
           ...req.body,
         }).createArt();

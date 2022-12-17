@@ -7,9 +7,9 @@
     },
     description: {
         type: String,
-        // required: true
+        required: true
     },
-    Image: {
+    image: {
         type: String,
         required: true
     },

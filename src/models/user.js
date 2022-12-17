@@ -16,7 +16,6 @@ const Schema = new mongoose.Schema({
     type: Number,
     trim: true,
     default: ''
-    
    },
    password: {
        type: String,

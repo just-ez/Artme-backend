@@ -25,17 +25,11 @@ class Art {
   async createArt() {
     const data = {
       name: this.data.name,
-      Image: this.data.Image,
+      description: this.data.description,
+      image: this.data.image,
       likes: this.data.likes,
       createdBy: this.data.decoded._id,
     };
-  const imgUrl =  await cloudinary.v2.uploader.upload(this.data.Image, {
-      use_filename: true,
-      unique_filename: false,
-      overwrite: true,
-    })
-    console.log(imgUrl);
-    data.Image = imgUrl.url
     const newArt = new ArtModel(data);
     const created = await newArt.save();
     if (created) return created;
