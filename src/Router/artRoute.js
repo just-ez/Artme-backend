@@ -8,6 +8,8 @@ router.get("/:Id", collection.getOneArt);
 
 router.post("/create", hasToken, collection.createArt);
 
+router.post("/:id/add-art-image", hasToken, collection.addArtImg);
+
 router.patch("/:Id", hasToken, collection.updateArt);
 
 router.delete("/:Id", hasToken, collection.deleteArt);

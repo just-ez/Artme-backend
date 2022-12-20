@@ -26,7 +26,6 @@ class Art {
     const data = {
       name: this.data.name,
       description: this.data.description,
-      image: this.data.image,
       likes: this.data.likes,
       createdBy: this.data.decoded._id,
     };
@@ -34,6 +33,18 @@ class Art {
     const created = await newArt.save();
     if (created) return created;
   }
+  async addArtImg() {
+    const data = {
+      id: this.data.id,
+      image: this.data.image,
+    };
+    const ART = await ArtModel.findById(data.id)
+    ART.image.push(data.image)
+    const saved = ART.save()
+    return saved
+    
+  }
+
 
   async updateArt() {
     const updated = this.data;
