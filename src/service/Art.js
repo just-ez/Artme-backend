@@ -31,7 +31,11 @@ class Art {
     };
     const newArt = new ArtModel(data);
     const created = await newArt.save();
-    if (created) return created;
+    if (created) {
+      created.image = [...this.data.image]
+      created.save()
+      return created
+    };
   }
   async addArtImg() {
     const data = {
