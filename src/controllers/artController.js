@@ -40,7 +40,7 @@ module.exports.addArtImg = async (req, res) => {
       id: req.params.id,
       image: req.body.image,
     }).addArtImg();
-    if (art) return success(res,art,200)
+    if (art) return success(res, art, 200);
   } catch (err) {
     return error(res, 400, err.message);
   }
