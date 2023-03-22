@@ -1,14 +1,18 @@
 const express = require('express')
+// App Init
 const app = express()
+
 const mongoose = require('mongoose')
 const {mongodburi,PORT} = require('./src/core/config')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
 const userRoute = require('./src/Router/userRoute')
-const collectionRoute = require('./src/Router/artRoute')
+const artRoute = require('./src/Router/artRoute')
+const postRoute = require('./src/Router/postRoute')
 const paystack = require('./src/controllers/clientController')
 const commentRoute = require('./src/Router/commentRoute')
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,8 +26,9 @@ app.use(cors({
 //router middleware
 
 app.use('/api/pay/',paystack)
-app.use("/api/art/", collectionRoute);
-app.use('/api/',userRoute) 
+app.use("/api/", postRoute);
+app.use("/api/art/", artRoute);
+app.use('/api/user',userRoute) 
 app.use('/api/',commentRoute)
 app.get('/',(req,res)=>{
     const apidoc = 'https://documenter.getpostman.com/view/21225799/UzQuR6VE'

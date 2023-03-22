@@ -6,9 +6,9 @@ class BaseController {
       });
     }
   
-    error(res, error, message) {        
+    error(res, error,) {        
       res.status(error || 400).json({
-        message: message,
+        message: error.message,
       });
     }
   }

@@ -1,17 +1,17 @@
 const router = require("../core/routeConfig");
-const collection = require("../controllers/artController");
+const art = require("../controllers/artController");
 const hasToken = require("../core/userAuth");
 
-router.get("/", collection.getAllArt);
+router.get("/", art.getAllArt);
 
-router.get("/:Id", collection.getOneArt);
+router.get("/:Id", art.getOneArt);
 
-router.post("/create", hasToken, collection.createArt);
+router.post("/create", hasToken, art.createArt);
 
-router.post("/:id/add-art-image", hasToken, collection.addArtImg);
+router.post("/:id/add-art-image", hasToken, art.addArtImg);
 
-router.patch("/:Id", hasToken, collection.updateArt);
+router.patch("/:Id", hasToken, art.updateArt);
 
-router.delete("/:Id", hasToken, collection.deleteArt);
+router.delete("/:Id", hasToken, art.deleteArt);
 
 module.exports = router;

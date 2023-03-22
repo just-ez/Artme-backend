@@ -26,5 +26,5 @@
 
  },{timestamps: true}) 
  
- const CollectionModel = mongoose.model('collection', Schema)
- module.exports = CollectionModel
+ const artModel = mongoose.model('art', Schema)
+ module.exports = artModel

@@ -5,7 +5,7 @@ module.exports.getAllArt = async (req, res) => {
   try {
     const Arts = await new Art().getAllArt();
     if (Arts) return success(res, Arts);
-    return error(res, 400, "unable to get users");
+    return error(res, 400, "Art Not Found");
   } catch (err) {
     error(res, 400, err);
   }
@@ -28,7 +28,7 @@ module.exports.createArt = async (req, res) => {
       ...req.body,
     }).createArt();
     if (art) return success(res, art, "Art created", 200);
-    return error(res, 404, "cannot find any data");
+    return error(res, 404, "Input Art Data And Try Again");
   } catch (err) {
     return error(res, 400, err.message);
   }
