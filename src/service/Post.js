@@ -1,4 +1,5 @@
 const postModel = require("../models/postModel");
+const USermodel = require("../models/user");
 
 class Post {
   constructor(data) {
@@ -24,10 +25,22 @@ class Post {
     return await postModel.find({ createdBy: userId }).populate("createdby");
   }
 
- async editPost() {
-    
+  async editPost() {
+    const { description, userId, postId } = this.data;
+    const findUser = await USermodel.findOne({ _id: userId });
+    console.log(description);
+    const post = await postModel.findOne({ _id: postId }).populate("createdBy");
+    if (findUser._id.toString() === post.createdBy._id.toString())
+      return await postModel.updateOne({ _id: postId }, { description });
   }
 
+  async deletePost() {
+    const { userId, postId } = this.data;
+    const findUser = await USermodel.findOne({ _id: userId });
+    const post = await postModel.findOne({ _id: postId }).populate("createdBy");
+    if (findUser._id.toString() === post.createdBy._id.toString())
+      return await postModel.deleteOne({ _id: postId });
+  }
 
 }
 

@@ -5,9 +5,9 @@ module.exports.getAllArt = async (req, res) => {
   try {
     const Arts = await new Art().getAllArt();
     if (Arts) return success(res, Arts);
-    return error(res, 400, "Art Not Found");
+    return error(res, { code: 404, message: "No Art Found" });
   } catch (err) {
-    error(res, 400, err);
+    return error(res, { code: err.code, message: err });
   }
 };
 
@@ -15,9 +15,9 @@ module.exports.getOneArt = async (req, res) => {
   try {
     const art = await new Art(req.params.Id).getOneArt();
     if (art) return success(res, art, 200);
-    return error(res, 404, "Art not found");
+    return error(res, { code: 404, message: "Art Not Found" });
   } catch (err) {
-    return error(res, 400, err);
+     return error(res, { code: err.code, message: err });
   }
 };
 
@@ -28,9 +28,9 @@ module.exports.createArt = async (req, res) => {
       ...req.body,
     }).createArt();
     if (art) return success(res, art, "Art created", 200);
-    return error(res, 404, "Input Art Data And Try Again");
+    return error(res, { code: err.code, message: "couldnot create art" });
   } catch (err) {
-    return error(res, 400, err.message);
+    return error(res, { code: err.code, message: err });
   }
 };
 
@@ -42,7 +42,7 @@ module.exports.addArtImg = async (req, res) => {
     }).addArtImg();
     if (art) return success(res, art, 200);
   } catch (err) {
-    return error(res, 400, err.message);
+    return error(res, { code: err.code, message: err });
   }
 };
 
@@ -54,9 +54,9 @@ module.exports.updateArt = async (req, res) => {
       ...req.body,
     }).updateArt();
     if (updated) return success(res, updated, 200);
-    return error(res, 400, "can not perform action");
+    return error(res, { code: err.code, message: "You Do Not Have Access To This Request" });
   } catch (err) {
-    return error(res, 400, err.message);
+    return  error(res, { code: err.code, message: err });
   }
 };
 
@@ -68,8 +68,8 @@ module.exports.deleteArt = async (req, res) => {
       ...req.body,
     }).deleteArt();
     if (deleted) return success(res, deleted, "Art deleted", 200);
-    return error(res, 400, "cannot delete Art");
+    return error(res, { code: err.code, message: "couldn't delete art" });
   } catch (err) {
-    return error(res, 400, err);
+    return  error(res, { code: err.code, message: err });
   }
 };

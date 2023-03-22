@@ -6,9 +6,9 @@ module.exports.getAllUsers = async (req, res) => {
   try {
     const users = await new User().getAll();
     if (users) return success(res, users, 200);
-    else return error(res, 404, "user not found");
+   
   } catch (err) {
-    return error(res, err.code, err.message);
+      return error(res, { code: err.code, message: err });
   }
 };
 
@@ -17,9 +17,9 @@ module.exports.getUserById = async (req, res) => {
     console.log(req.decoded);
     const user = await new User(req.decoded._id).getUserById();
     if (user) return success(res, user, 200);
-    else return error(res, 404, "user not found");
+    return error(res, { code: err.code, message: "User With Id Not Found" });
   } catch (err) {
-    error(res, err.code, err.message);
+    return error(res, { code: err.code, message: err });
   }
 };
 
@@ -27,9 +27,9 @@ module.exports.signup = async (req, res) => {
   try {
     const user = await new User(req.body).signup();
     if (user) return success(res, user, "user created successfully", 200);
-    else return error(res, err.code, "user with email already exists");
+    return error(res, { code: 400, message: "Email Already Exists" });
   } catch (err) {
-    return error(res, err.code, err.message);
+      return error(res, { code: err.code, message: err });
   }
 };
 
@@ -41,9 +41,9 @@ module.exports.updateUser = async (req, res) => {
     }).updateUserBoi();
     if (updateUser)
       return success(res, updateUser, "user details updated", 200);
-    return error(res, err.code, "unable to update user");
+      return error(res, { code: 401, message: "cannot update user profile" });
   } catch (err) {
-    return error(res, err.code, err.message);
+      return error(res, { code: err.code, message: err });
   }
 };
 
@@ -57,10 +57,10 @@ module.exports.updateProfileImg = async (req, res) => {
     console.log(userProfile);
     if (userProfile)
       return success(res, userProfile, "user profile image updated", 200);
-    return error(res, 400, "unable to update user");
+      return error(res, { code: 401, message: "cannot update user profile" });
   } catch (err) {
     console.log(err);
-    return error(res, 400, err);
+    return error(res, { code: err.code, message: err });
   }
 };
 
@@ -71,11 +71,11 @@ module.exports.updateCoverImg = async (req, res) => {
       id: req.decoded._id,
       coverImage: req.body.coverImage,
     }).updateCoverImg();
-    if (img) return success(res, [], "user cover image updated");
-    return error(res, 400, "incorrect file");
+    if (img) return success(res, img, "user cover image updated");
+    return error(res, { code: 401, message: "Incorrect Data Type" });
   } catch (err) {
     console.log(err);
-    return error(res, 400, err.message);
+    return error(res, { code: err.code, message: err });
   }
 };
 
@@ -83,10 +83,10 @@ module.exports.login = async (req, res) => {
   try {
     const token = await new User(req.body).login();
     if (token) return success(res, token, "login succsessful");
-    return error(res, err.code, "incorrect user details");
+    return error(res, { code: err.code, message: "Incorrest credentails" });
   } catch (err) {
-    return error(res, err.code, err);
+    return error(res, { code: err.code, message: err });
   }
 };
 
-// module.exports = router
+
