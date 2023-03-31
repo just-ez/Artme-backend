@@ -25,5 +25,12 @@ module.exports = {
         CINEMA: "CINEMA",
         MUSIC: "MUSIC",
         THEATER: "THEATER"
+    },
+    REACTIONS: {
+      SMILE: "SMILE",
+      ANGRY: "ANGRY",
+      LOVE: "LOVE",
+      LIKE: "LIKE",
+      DISLIKE: "DISLIKE"
     }
   };

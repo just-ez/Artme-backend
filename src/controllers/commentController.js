@@ -15,23 +15,7 @@ module.exports.getComments = async (req,res) => {
     }
 }
 
-module.exports.createComment= async (req,res) => {
 
-    try{
-    const comment = await new Comment({
-      decoded_Id: req.decoded._id,
-      postId: req.params.postId,
-      ...req.body,
-    }).createComment();
-    console.log(comment);
-    if (comment) return success(res,comment,'comment created',200)
-      return error(res, { code: 400, message: "error creating comment" });
-}
- catch (err) {
-    return error(res, { code: err.code, message: err });
- }
-
-}
 
 module.exports.updateComment = async (req,res) => {
     try {

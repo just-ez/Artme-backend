@@ -1,6 +1,5 @@
 const artModel = require("../models/art");
-const BaseController = require("../utils/baseController");
-const cloudinary = require("../core/cloudinaryConfig.js");
+const likesModel = require("../models/likes");
 
 class Art {
   constructor(data) {
@@ -41,6 +40,16 @@ class Art {
     ART.image.push(data.image);
     const saved = ART.save();
     return saved;
+  }
+
+  async likeArt() {
+    const { reaction, docId, userId } = this.data;
+    return await new likesModel({
+      reaction,
+      docId,
+      docModel: 'art',
+      createdBy: userId,
+    }).save();
   }
 
   async updateArt() {

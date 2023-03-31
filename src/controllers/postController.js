@@ -49,6 +49,24 @@ module.exports.getUserPost = async (req, res) => {
   }
 };
 
+module.exports.likePost = async (req, res) => {
+  try {
+    const {  reaction } = req.body;
+    const userId = req.decoded;
+    const docId = req.query.postId;
+    const like = await new Post({
+      reaction,
+      docId,
+      userId,
+    }).likePost();
+    return success(res, {like})
+  } catch (err) {
+    console.log(err);
+   return error(res, { code: err.code, message: err.message });
+  }
+};
+
+
 module.exports.editPost = async (req, res) => {
   try {
     const post = await new Post({
@@ -67,6 +85,25 @@ module.exports.editPost = async (req, res) => {
     return error(res, { code: err.code, message: err });
   }
 };
+
+module.exports.createComment= async (req,res) => {
+
+  try{
+  const comment = await new Post({
+    decoded_Id: req.decoded._id,
+    docId: req.query.docId,
+    docModel: "post",
+    ...req.body,
+  }).createComment();
+  console.log(comment);
+  if (comment) return success(res,comment,'comment created',200)
+    return error(res, { code: 400, message: "error creating comment" });
+}
+catch (err) {
+  return error(res, { code: err.code, message: err });
+}
+
+}
 
 module.exports.deletePost = async (req, res) => {
     try {

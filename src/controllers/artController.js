@@ -13,7 +13,7 @@ module.exports.getAllArt = async (req, res) => {
 
 module.exports.getOneArt = async (req, res) => {
   try {
-    const art = await new Art(req.params.Id).getOneArt();
+    const art = await new Art(req.query.Id).getOneArt();
     if (art) return success(res, art, 200);
     return error(res, { code: 404, message: "Art Not Found" });
   } catch (err) {
@@ -34,6 +34,24 @@ module.exports.createArt = async (req, res) => {
   }
 };
 
+module.exports.likeArt = async (req, res) => {
+  try {
+    const {  reaction } = req.body;
+    console.log(reaction);
+    const userId = req.decoded;
+    const docId = req.query.postId;
+    const like = await new Art({
+      reaction,
+      docId,
+      userId,
+    }).likeArt();
+    return success(res, {like})
+  } catch (err) {
+    console.log({err});
+    error(res, { code: err.code, message: err.message });
+  }
+};
+
 module.exports.addArtImg = async (req, res) => {
   try {
     const art = await new Art({
@@ -49,7 +67,7 @@ module.exports.addArtImg = async (req, res) => {
 module.exports.updateArt = async (req, res) => {
   try {
     const updated = await new Art({
-      Id: req.params.Id,
+      Id: req.query.Id,
       decoded: req.decoded,
       ...req.body,
     }).updateArt();
@@ -63,7 +81,7 @@ module.exports.updateArt = async (req, res) => {
 module.exports.deleteArt = async (req, res) => {
   try {
     const deleted = await new Art({
-      Id: req.params.Id,
+      Id: req.query.Id,
       decoded: req.decoded,
       ...req.body,
     }).deleteArt();

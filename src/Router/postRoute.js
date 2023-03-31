@@ -3,10 +3,13 @@ const authenticate = require("../core/userAuth");
 const post = require("../controllers/postController");
 
 postRoute
-    .route("/post")
-    .post(authenticate, post.createPost);
+    .post("/post",authenticate, post.createPost);
 
 postRoute.get("/post/all", authenticate, post.getAllPost);
+
+postRoute.post("/post/like-post", authenticate, post.likePost);
+
+postRoute.post("/comment/", authenticate, post.createComment);
 
 postRoute.get("/post/one/:postId", authenticate, post.getPost);
 

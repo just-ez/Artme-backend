@@ -1,5 +1,8 @@
 const postModel = require("../models/postModel");
 const USermodel = require("../models/user");
+const likesModel = require("../models/likes");
+const commentModel = require("../models/comment");
+
 
 class Post {
   constructor(data) {
@@ -25,6 +28,16 @@ class Post {
     return await postModel.find({ createdBy: userId }).populate("createdby");
   }
 
+  async likePost() {
+    const { reaction, docId, userId } = this.data;
+    return await new likesModel({
+      reaction,
+      docId,
+      docModel: 'post',
+      createdBy: userId,
+    }).save();
+  }
+
   async editPost() {
     const { description, userId, postId } = this.data;
     const findUser = await USermodel.findOne({ _id: userId });
@@ -41,6 +54,18 @@ class Post {
     if (findUser._id.toString() === post.createdBy._id.toString())
       return await postModel.deleteOne({ _id: postId });
   }
+
+  async createComment() {
+    const comments = new commentModel({
+      docId: this.data.docId,
+      text: this.data.text,
+      docModel: this.data.docModel,
+      createdBy: this.data.decoded_Id,
+    });
+    const result = await comments.save();
+    if (result) return result;
+  }
+
 
 }
 

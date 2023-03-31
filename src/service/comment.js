@@ -23,9 +23,9 @@ class Comment {
 
   async createComment() {
     const comments = new comment({
-      post: this.data.postId,
+      docId: this.data.docId,
       text: this.data.text,
-      likes: this.data.likes,
+      docModel: this.data.docModel,
       createdBy: this.data.decoded_Id,
     });
     const result = await comments.save();
