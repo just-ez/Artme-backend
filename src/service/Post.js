@@ -16,7 +16,10 @@ class Post {
 
   async getPost() {
     const { postId } = this.data;
-    return await postModel.findOne({ _id: postId }).populate("createdBy");
+   const likes = await likesModel.find({docId: postId})
+    const post = await postModel.findOne({ _id: postId }).populate("createdBy");
+      post.likes =  likes.length
+    return  await post.save()
   }
 
   async getAllPost() {
@@ -25,18 +28,25 @@ class Post {
 
   async getUserPost() {
     const { userId } = this.data;
-    return await postModel.find({ createdBy: userId }).populate("createdby");
+    console.log(userId);
+    return await postModel.find({ createdBy: userId })
   }
 
   async likePost() {
     const { reaction, docId, userId } = this.data;
-    return await new likesModel({
+    await new likesModel({
       reaction,
       docId,
       docModel: 'post',
       createdBy: userId,
     }).save();
+    const likes = await likesModel.find({docId})
+    const post = await postModel.findOne({ _id: docId }).populate("createdBy");
+      post.likes =  likes.length
+    return  await post.save()
   }
+
+  
 
   async editPost() {
     const { description, userId, postId } = this.data;

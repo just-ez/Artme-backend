@@ -9,7 +9,7 @@ const postSchema = new Schema({
         type: Array,
     },
     likes: {
-        type: Array
+        type: Number
     },
     createdBy: {
         type: mongoose.Types.ObjectId,

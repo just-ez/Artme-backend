@@ -41,7 +41,7 @@ module.exports.getUserPost = async (req, res) => {
   try {
     const post = await new Post({
       userId: req.params.userId,
-    }).getAllPost();
+    }).getUserPost();
     return success(res, { post });
   } catch (err) {
     console.log(err);
@@ -94,6 +94,9 @@ module.exports.createComment= async (req,res) => {
     docId: req.query.docId,
     docModel: "post",
     ...req.body,
+
+
+
   }).createComment();
   console.log(comment);
   if (comment) return success(res,comment,'comment created',200)
