@@ -29,7 +29,7 @@ class Post {
   async getUserPost() {
     const { userId } = this.data;
     console.log(userId);
-    return await postModel.find({ createdBy: userId })
+    return await postModel.find({ createdBy: userId }).populate("createdBy")
   }
 
   async likePost() {
