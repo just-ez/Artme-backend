@@ -76,7 +76,6 @@ class Post {
     if (result) return result;
   }
 
-
 }
 
 module.exports = Post;
